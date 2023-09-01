@@ -8,7 +8,7 @@ var bodyParser = require('body-parser')
 const app = express();
 
 //Port used: 3001
-const PORT = process.env.PORT || 3001;
+const PORT = process.env.PORT || 8080;
 
 //Cors setup
 app.use(cors({
