@@ -8,7 +8,7 @@ var bodyParser = require('body-parser')
 const app = express();
 
 //Port used: 3001
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 3001;
 
 //Cors setup
 app.use(cors({
@@ -142,6 +142,19 @@ app.post("/eventPost", cors(), async (req, res) => {
     const setter = await userDB.collection('courses').doc(req.body.event).update({events: FieldValue.arrayUnion(req.body)});
     res.json({return: 'yes'});
 })
+
+//Remove a course in the schedule
+app.post("/scheduleDelete", cors(), async (req, res) => {
+    const remove = await userDB.collection('courses').doc(req.body.title).delete();
+    res.json({return: 'complete'});
+})
+
+//Remove an item from a course schedule
+app.post("/eventDelete", cors(), async (req, res) => {
+    console.log(req.body);
+    const remove = await userDB.collection('courses').doc(req.body.title).get();
+})
+
 
 //Basic listen
 app.listen(PORT, () => {
